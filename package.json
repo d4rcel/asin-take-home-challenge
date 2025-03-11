@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/d4rcel/asin-take-home-challenge/issues"
   },
-  "homepage": "https://github.com/d4rcel/asin-take-home-challenge#readme"
+  "homepage": "https://github.com/d4rcel/asin-take-home-challenge#readme",
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
 }
