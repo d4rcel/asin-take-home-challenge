@@ -58,3 +58,8 @@ Ceci est une application en ligne de commande compatible avec Unix écrite en Ty
 
 ```bash
 npm start -- people.xlsx
+```
+
+## Test
+```bash
+npm test
