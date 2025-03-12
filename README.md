@@ -3,7 +3,7 @@
 This is a Unix-friendly command line application written in TypeScript that imports XLSX data into an SQLite database using **exceljs**'s streaming API.
 
 # Best response time
-<img src="/best-response-time.png" alt="Best response time" width="300" />
+<img src="/best-response-time.png" alt="Best response time" width="1000" />
 
 ## Features
 
@@ -31,14 +31,14 @@ npm start -- people.xlsx
 ```bash
 npm test
 ```
-
+---------------------------------------------------------------------------------------
 
 # Importateur XLSX vers DB
 
 Ceci est une application en ligne de commande compatible avec Unix écrite en TypeScript qui importe des données XLSX dans une base de données SQLite en utilisant l'API de streaming d'**exceljs**. Elle est conçue avec une qualité de production, comprenant une gestion d'erreurs appropriée, un traitement par lots, des tests et de la documentation.
 
 ## Best response time
-<img src="/best-response-time.png" alt="Best response time" width="300" />
+<img src="/best-response-time.png" alt="Best response time" width="1000" />
 
 ## Fonctionnalités
 
