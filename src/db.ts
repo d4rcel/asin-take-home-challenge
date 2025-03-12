@@ -26,12 +26,13 @@ export async function initDb(dbFile: string = './importer.db'): Promise<Database
   return db;
 }
 
+
 /**
- * Inserts an array of people records into the database using a transaction.
+ * Inserts an array of people records into the database using batch transaction.
  * @param db - The Database instance.
- * @param people - An array of records, where each record is a string array of [code, first_name, last_name, date, status].
+ * @param people - A batch of records.
  */
-export async function insertPeople(db: Database, people: string[][]): Promise<void> {
+export async function insertPeopleBatch(db: Database, people: string[][]): Promise<void> {
   const insertStmt = await db.prepare(
     'INSERT INTO people (code, first_name, last_name, date, status) VALUES (?, ?, ?, ?, ?)'
   );

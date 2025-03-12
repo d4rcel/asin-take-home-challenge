@@ -1,18 +1,13 @@
 import { parse } from 'csv-parse';
-import { Readable } from 'stream';
+import { createReadStream } from 'fs';
 
 /**
- * Parses CSV data from a readable stream.
- * @param stream - The input stream containing CSV data.
- * @returns A Promise that resolves with an array of records.
+ * Asynchronously iterates over CSV records from a given file path.
+ * @param filePath - The CSV file path.
  */
-export function parseCsv(stream: NodeJS.ReadableStream): Promise<string[][]> {
-  return new Promise((resolve, reject) => {
-    const records: string[][] = [];
-    stream
-      .pipe(parse({ trim: true }))
-      .on('data', (row: string[]) => records.push(row))
-      .on('end', () => resolve(records))
-      .on('error', (err: Error) => reject(err));
-  });
+export async function* streamCsv(filePath: string): AsyncGenerator<string[], void, unknown> {
+  const parser = createReadStream(filePath).pipe(parse({ trim: true }));
+  for await (const record of parser) {
+    yield record as string[];
+  }
 }

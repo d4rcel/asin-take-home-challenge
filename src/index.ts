@@ -1,21 +1,37 @@
-import { initDb, insertPeople } from './db';
-import { parseCsv } from './csvParser';
+import { initDb, insertPeopleBatch } from './db';
+import { streamCsv } from './csvParser';
 
 async function main(): Promise<void> {
-  const startTime = Date.now();
+  const filePath = process.argv[2];
+  if (!filePath) {
+    console.error("Usage: npm start <path-to-csv-file>");
+    process.exit(1);
+  }
 
-  // Initialize (or create) the database and table
+  const startTime = Date.now();
   const db = await initDb();
 
   try {
-    // Parse CSV data from stdin
-    const records = await parseCsv(process.stdin);
-    // Insert the parsed records into the database
-    await insertPeople(db, records);
+    const batchSize = 1000;
+    let batch: string[][] = [];
+    let totalRecords = 0;
+
+    for await (const record of streamCsv(filePath)) {
+      batch.push(record);
+      if (batch.length === batchSize) {
+        await insertPeopleBatch(db, batch);
+        totalRecords += batch.length;
+        batch = [];
+      }
+    }
+
+    if (batch.length > 0) {
+      await insertPeopleBatch(db, batch);
+      totalRecords += batch.length;
+    }
 
     const endTime = Date.now();
-    const elapsed = endTime - startTime;
-    console.log(`Inserted ${records.length} records in ${elapsed} ms.`);
+    console.log(`Inserted ${totalRecords} records in ${endTime - startTime} ms.`);
   } catch (err) {
     console.error('Error processing CSV:', err);
     process.exit(1);
