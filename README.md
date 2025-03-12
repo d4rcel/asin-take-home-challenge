@@ -3,7 +3,7 @@
 This is a Unix-friendly command line application written in TypeScript that imports XLSX data into an SQLite database using **exceljs**'s streaming API.
 
 # Best response time
-<img src="/best-response-time.png" alt="Best response time" width="1000" />
+<img src="/best-response-time.png" alt="Best response time" width="1200" />
 
 ## Features
 
